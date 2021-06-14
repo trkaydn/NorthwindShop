@@ -1,0 +1,126 @@
+﻿@using NorthwindMarket.Models;
+@model AdminViewModel
+@{
+    ViewBag.Title = "Mağaza Paneli";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row" style="margin-left:20px;">
+    <div class="col-4">
+        <div class="card">
+            <div class="card-header" style="background-color:#4cb1ca">
+            </div>
+            <div class="card-body orderCart">
+                <h5 class="card-title"><a href="@Url.Action("Orders","AdminOrder", new {status="waiting" })" style="color:black;text-decoration:none;">Sevk Bekleyen Siparişler (@ViewBag.Waiting)</a></h5>
+                <p class="card-text">Sevk edilmeyi bekleyen <strong>@ViewBag.Waiting</strong> siparişiniz var.</p>
+                <a href="@Url.Action("Orders","AdminOrder", new {status="waiting" })" class="btn btn-primary" style="float:right;">Göster</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="card">
+            <div class="card-header" style="background-color:#4cb1ca">
+
+            </div>
+            <div class="card-body orderCart">
+                <h5 class="card-title"><a href="@Url.Action("Orders","AdminOrder", new {status="completed" })" style="color:black;text-decoration:none;">Tamamlanan Siparişler (@ViewBag.Completed)</a></h5>
+                <p class="card-text">Bugüne kadar <strong>@ViewBag.Completed</strong> sipariş tamamladınız.</p>
+                <a href="@Url.Action("Orders","AdminOrder", new {status="completed" })" class="btn btn-primary" style="float:right;">Göster</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="card">
+            <div class="card-header" style="background-color:#4cb1ca">
+
+            </div>
+            <div class="card-body orderCart">
+                <h5 class="card-title"><a href="@Url.Action("Orders","AdminOrder", new {status="cancelled" })" style="color:black;text-decoration:none;">İptal Edilen Siparişler (@ViewBag.Cancelled)</a></h5>
+                <p class="card-text">Bugüne kadar <strong>@ViewBag.Cancelled</strong> sipariş iptal edildi.</p>
+                <a href="@Url.Action("Orders","AdminOrder", new {status="cancelled" })" class="btn btn-primary" style="float:right;">Göster</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <br />
+        <div class="card">
+            <h5 class="card-header">Depo İşlemleri</h5>
+            <div class="card-body orderCart">
+
+                <div class="row">
+                    <div class="col-sm-3">
+                        <p class="card-text"><a href="@Url.Action("Index","AdminProduct")" class="btn btn-success">Ürünler</a> Ürünlerinizi yönetin.</p>
+                    </div>
+                    <div class="col-sm-3">
+                        <p class="card-text"><a href="@Url.Action("Index","AdminCategory")" class="btn btn-info">Kategoriler</a> Kategorileri yönetin.</p>
+                    </div>
+                    <div class="col-sm-3">
+                        <p class="card-text"><a href="@Url.Action("Index","AdminShipper")" class="btn btn-warning">Nakliye Firmaları</a> Firmaları yönetin.</p>
+                    </div>
+                    <div class="col-sm-3">
+                        <p class="card-text"><a href="@Url.Action("Index","AdminCustomer")" class="btn btn-secondary">Kullanıcılar</a> Kullanıcıları yönetin.</p>
+                    </div>
+
+                </div>
+            </div>
+        </div><br />
+        <div class="card">
+            <h5 class="card-header">Kişisel Bilgilerim</h5>
+            <div class="card-body orderCart">
+
+                <div class="row">
+                    <div class="col-sm-3">
+                        <p class="card-text">Kullanıcı Adı: <strong>@Model.Admin.UserName</strong></p>
+                    </div>
+                    <div class="col-sm-3">
+                        <p class="card-text">Ad Soyad: <strong>@Model.Admin.FirstName @Model.Admin.LastName</strong></p>
+                    </div>
+                    <div class="col-sm-3">
+                        <p class="card-text">Meslek: <strong>@Model.Admin.Title</strong></p>
+                    </div>
+                    <div class="col-sm-3">
+                        <p class="card-text">Hakkımda: <strong>@Model.Admin.Notes.Substring(0, 17)...</strong></p>
+                    </div>
+                    <div class="col-sm-3">
+                        <p class="card-text">Doğum Tarihi: <strong>@Model.Admin.BirthDate.ToString("dd.MM.yyyy")</strong></p>
+                    </div>
+                    <div class="col-sm-3">
+                        <p class="card-text">İşe Giriş Tarihi: <strong>@Model.Admin.HireDate.ToString("dd.MM.yyyy")</strong></p>
+                    </div>
+                </div>
+                <a href="@Url.Action("AdminInfo","Admin")" class="btn btn-primary" style="float:right">Güncelle</a>
+            </div>
+        </div><br />
+        <div class="card">
+            <h5 class="card-header">İletişim Bilgilerim</h5>
+            <div class="card-body orderCart">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <p class="card-text">Adres: <strong>@Model.Admin.Address</strong></p>
+                    </div>
+                    <div class="col-sm-3">
+                        <p class="card-text">Şehir: <strong>@Model.Admin.City</strong></p>
+                    </div>
+                    <div class="col-sm-3">
+                        <p class="card-text">Ülke: <strong>@Model.Admin.Country</strong></p>
+                    </div>
+                    <div class="col-sm-3">
+                        <p class="card-text">Bölge: <strong>@Model.Admin.Region</strong></p>
+                    </div>
+                    <div class="col-sm-3">
+                        <p class="card-text">Posta Kodu: <strong>@Model.Admin.PostalCode</strong></p>
+                    </div>
+                    <div class="col-sm-3">
+                        <p class="card-text">Telefon: <strong>@Model.Admin.HomePhone</strong></p>
+                    </div>
+                </div>
+                <a href="@Url.Action("AddressInfo","Admin")" class="btn btn-primary" style="float:right">Güncelle</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

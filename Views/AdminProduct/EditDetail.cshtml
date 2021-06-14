@@ -1,0 +1,41 @@
+﻿@model NorthwindMarket.Models.Entities.Products
+@{
+    ViewBag.Title = "Ürünü Düzenle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div style="background-color:#f7f7f7;margin-left:20px;">
+    <div class="card-body">
+        <h3 class="display-6" style="text-align:center">@ViewBag.Title</h3><hr />
+
+        @using (Html.BeginForm("EditDetail", "AdminProduct", FormMethod.Post))
+        {
+            @Html.LabelFor(x => x.ProductID)
+            @Html.TextBoxFor(x => x.ProductID, "", new { @class = "form-control", value = Model.ProductID, @readonly = true })
+            @Html.ValidationMessageFor(x => x.ProductID, "", new { @class = "text-danger" })
+            <br />
+            @Html.LabelFor(x => x.ProductName)
+            @Html.TextBoxFor(x => x.ProductName, "", new { @class = "form-control", value = Model.ProductName })
+            @Html.ValidationMessageFor(x => x.ProductName, "", new { @class = "text-danger" })
+            <br />
+            @Html.LabelFor(x => x.QuantityPerUnit)
+            @Html.TextBoxFor(x => x.QuantityPerUnit, "", new { @class = "form-control", value = Model.QuantityPerUnit })
+            @Html.ValidationMessageFor(x => x.QuantityPerUnit, "", new { @class = "text-danger" })
+            <br />
+            @Html.LabelFor(x => x.CategoryID)
+            @Html.DropDownListFor(x => x.CategoryID, (IEnumerable<SelectListItem>)ViewBag.Categories, "Bir kategori seçin", new { @class = "form-control", })
+            @Html.ValidationMessageFor(x => x.CategoryID, "", new { @class = "text-danger" })
+            <br />
+            @Html.LabelFor(x => x.SupplierID)
+            @Html.DropDownListFor(x => x.SupplierID, (IEnumerable<SelectListItem>)ViewBag.Suppliers, "Bir firma seçin", new { @class = "form-control", })
+            @Html.ValidationMessageFor(x => x.SupplierID, "", new { @class = "text-danger" })
+            <br />
+            <input type="submit" class="btn btn-secondary" style="float:right;" value="Kaydet" />
+
+        }
+        <a href="@Url.Action("Index","AdminProduct")" class=" btn btn-danger" style="float:right;margin-right:10px;">İptal</a>
+
+        <br /><br />
+    </div>
+</div>
+

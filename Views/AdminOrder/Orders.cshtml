@@ -1,0 +1,100 @@
+﻿@using NorthwindMarket.Models
+@using PagedList.Mvc
+@model AdminOrderViewModel
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div style="background-color:#f7f7f7;margin-left:20px">
+    <div class="card-body">
+
+        <h3 class="display-6" style="text-align:center">@ViewBag.Title</h3><hr />
+        @if (Model.Order.Count() < 1)
+        {
+            <br />
+            <h4 style="text-align:center">Gösterilecek hiçbir sonuç bulunamadı.</h4>
+        }
+        @foreach (var order in Model.Order)
+        {
+            var orderdetails = Model.OrderDetail.Where(x => x.OrderID == order.OrderID).Select(x => new { x.Products.ProductName, x.Quantity, x.UnitPrice }).ToList();
+            double price = 0;
+            <div class="card adminOrderCart">
+                <div class="card-body">
+                    <div class="row">
+
+                        <div class="col-sm-2">
+                            <img src="~/Content/images/product.jpg" alt="ls" style="width:100px;height:100px" /><br />
+                            <p style="margin-bottom:0.5rem;">
+                                <strong>Sipariş No:</strong><br />
+                                @order.OrderID
+                            </p>
+                        </div>
+                        <div class="col-sm-2">
+                            <p>
+                                <strong>Müşteri Adı:</strong><br />
+                                @order.Customers.ContactName
+                            </p>
+                            <p>
+                            <p>
+                                <strong>Sipariş Tarihi:</strong><br />
+                                @order.OrderDate.ToString("dd.MM.yyyy")
+                            </p>
+                        </div>
+                        <div class="col-sm-4">
+                            <p>
+                                <strong>Ürünler:</strong><br />
+                                @foreach (var item in orderdetails)
+                                {
+                                    var productId = Model.Product.Where(x => x.ProductName == item.ProductName).FirstOrDefault().ProductID;
+                                    <a style="color:black;text-decoration:none;" href="@Url.Action("Product","Home",new {id= productId})" target="_blank">@item.ProductName (@item.Quantity Adet)</a><br />
+                                }
+                            </p>
+                        </div>
+
+                        <div class="col-sm-2">
+
+                            <p><strong>Toplam Tutar:</strong></p>
+                            @foreach (var orderdetail in orderdetails)
+                            {
+                                price += Convert.ToDouble(orderdetail.Quantity * orderdetail.UnitPrice);
+                            }
+
+                            @if (price >= 100)
+                            {
+                                <p>$@price</p>
+                                <p>(Ücretsiz Kargo)</p>
+                            }
+                            else
+                            {
+                                price += Convert.ToDouble(order.Shippers.ShipPrice);
+                                <p>$@price</p>
+                                <p>($@order.Shippers.ShipPrice Kargo Ücreti Dahildir.)</p>
+                            }
+
+                        </div>
+                        <div class="col-sm-2">
+                            @if (order.ShippedDate != null || order.OrderStatus == false)
+                            {
+                                <button class="btn btn-danger deleteOrderAdmin" value="@order.OrderID" style="float:right;width:100%">Sil</button>
+                            }
+                            else if (order.ShippedDate == null && order.OrderStatus)
+                            {
+                                <button class="btn btn-success acceptOrderAdmin" value="@order.OrderID" style="float:right;width:100%">Siparişi Gönder</button><br /><br /><br />
+                                <button class="btn btn-danger cancelOrderAdmin" value="@order.OrderID" style="float:right;width:100%">Siparişi Geri Çevir</button>
+
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+        }
+
+    </div>
+    <div style="margin:auto;width:30%;">
+        @Html.PagedListPager(Model.Order, page => Url.Action("Orders", new { page, status = ViewBag.status }))
+    </div>
+    <br />
+
+</div>
+

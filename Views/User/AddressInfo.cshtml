@@ -1,0 +1,60 @@
+﻿@using NorthwindMarket.Models
+@model UserViewModel
+@{
+    ViewBag.Title = "Adres Bilgilerim";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+}
+
+<div class="col-sm-9" style="background-color:#f7f7f7;">
+    <div class="card-body">
+        @if (ViewBag.AddressMessage != null)
+        {
+            <div class="alert alert-primary">
+                @ViewBag.AddressMessage
+            </div>
+        }
+        else if (ViewBag.AddressError != null)
+        {
+                <div class="alert alert-danger">
+                    @ViewBag.AddressError
+                </div>
+        }
+
+        @using (Html.BeginForm("AddressInfo", "User", FormMethod.Post))
+        {
+            @Html.LabelFor(x => x.User.Address)
+            @Html.TextBoxFor(x => x.User.Address, "", new { @class = "form-control", value = Model.User.Address })
+            @Html.ValidationMessageFor(x => x.User.Address, "", new { @class = "text-danger" })
+            <br />
+            @Html.LabelFor(x => x.User.City)
+            @Html.TextBoxFor(x => x.User.City, "", new { @class = "form-control", value = Model.User.City })
+            @Html.ValidationMessageFor(x => x.User.City, "", new { @class = "text-danger" })
+            <br />
+            @Html.LabelFor(x => x.User.Country)
+            @Html.TextBoxFor(x => x.User.Country, "", new { @class = "form-control", value = Model.User.Country })
+            @Html.ValidationMessageFor(x => x.User.Country, "", new { @class = "text-danger" })
+            <br />
+            @Html.LabelFor(x => x.User.Region)
+            @Html.TextBoxFor(x => x.User.Region, "", new { @class = "form-control", value = Model.User.Region })
+            @Html.ValidationMessageFor(x => x.User.Region, "", new { @class = "text-danger" })
+            <br />
+            @Html.LabelFor(x => x.User.PostalCode)
+            @Html.TextBoxFor(x => x.User.PostalCode, "", new { @class = "form-control", value = Model.User.PostalCode })
+            @Html.ValidationMessageFor(x => x.User.PostalCode, "", new { @class = "text-danger" })
+            <br />
+            @Html.LabelFor(x => x.User.Phone)
+            @Html.TextBoxFor(x => x.User.Phone, "", new { @class = "form-control", value = Model.User.Phone })
+            @Html.ValidationMessageFor(x => x.User.Phone, "", new { @class = "text-danger" })
+            <br />
+            @Html.LabelFor(x => x.User.Fax)
+            @Html.TextBoxFor(x => x.User.Fax, "", new { @class = "form-control", value = Model.User.Fax })
+            @Html.ValidationMessageFor(x => x.User.Fax, "", new { @class = "text-danger" })
+            <br />
+            <input type="submit" class="btn btn-secondary" style="float:right;" value="Kaydet" />
+
+        }
+        <a href="@Url.Action("Index","User")" class=" btn btn-danger" style="float:right;margin-right:10px;">İptal</a>
+
+        <br /><br />
+    </div>
+</div>

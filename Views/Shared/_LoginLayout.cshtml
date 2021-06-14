@@ -1,0 +1,67 @@
+﻿@model NorthwindMarket.Models.HomeViewModel
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Northwind Shop - @ViewBag.Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="shortcut icon" type="image/x-icon" href="~/Content/images/favicon.ico" />
+    <link href="~/Content/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/Content/css/form.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/PagedList.css" rel="stylesheet" />
+    <script type="text/javascript" src="~/Content/js/jquery1.min.js"></script>
+
+</head>
+<body>
+    @RenderBody()
+    <br /><br /><br />
+    <div class="footer">
+        <div class="footer-top">
+            <div class="wrap">
+                <div class="section group example">
+                    <div class="col_1_of_2 span_1_of_2">
+                        <ul class="f-list">
+                            <li><img src="~/Content/images/2.png"><span class="f-text">$100 VE ÜZERİ SİPARİŞLERDE ÜCRETSİZ KARGO</span><div class="clear"></div></li>
+                        </ul>
+                    </div>
+                    <div class="col_1_of_2 span_1_of_2">
+
+                        <div class="social-media">
+                            <ul>
+                                <li> <span class="simptip-position-bottom simptip-movable" data-tooltip="Google"><a href="javascript:void(0);"> </a></span></li>
+
+                                <li><span class="simptip-position-bottom simptip-movable" data-tooltip="Linked in"><a href="https://www.linkedin.com/in/tar%C4%B1k-ayd%C4%B1n-1083a6212/" target="_blank"> </a> </span></li>
+                                <li><span class="simptip-position-bottom simptip-movable" data-tooltip="GitHub"><a href="https://github.com/trkaydn" target="_blank"> </a></span></li>
+                                <li><span class="simptip-position-bottom simptip-movable" data-tooltip="Facebook"><a href="https://www.facebook.com/tarik1846/" target="_blank"> </a></span></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="wrap">
+                <div class="copy">
+                    <p>Copyright © 2021 Tarık Aydın - Tüm hakları saklıdır.</p>
+                </div>
+                <div class="f-list2">
+                    <ul>
+                        <li><a href="@Url.Action("About","Home")">| Hakkımızda |</a></li>
+                    </ul>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Content/js/test.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Content/js/sweetalert2.all.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+</body>
+</html>

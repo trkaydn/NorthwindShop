@@ -1,0 +1,59 @@
+﻿@{ 
+    double totalprice = 0;
+}
+<div class="tag-list" id="partialCart">
+
+    <ul class="icon1  profile_img">
+        @{ var cart = (Dictionary<Products, int>)Session["cart"];
+            if (cart == null || cart.Count() < 1)
+            {
+
+                <li class="sub-icon1 list">
+                    <a class="active-icon c2" href="@Url.Action("Index", "Cart")"> </a>
+                    <ul class="card-body">
+
+                        <li><h3>Sepetiniz Boş.</h3></li>
+                        <li><p>Hemen alışverişe başlayın!</p></li>
+                    </ul>
+                    <a href="@Url.Action("Index", "Cart")" id="cartCount" style="color:black;text-decoration:none;">Sepet (0)</a>
+
+                </li>
+
+            }
+            else
+            {
+
+                <li class="sub-icon1 list">
+                    <a class="active-icon c2" href="@Url.Action("Index", "Cart")"> </a>
+                    <ul class="card-body">
+                        @foreach (var item in cart)
+                        {
+                            <li>
+                                <div class="row">
+                                    <div class="col">
+                                        <a href="@Url.Action("Product","Home",new {id=item.Key.ProductID })"><img src="~/Content/images/product.jpg" /></a>
+                                    </div>
+                                    <div class="col">
+                                        <h6 style="color:#399FB8;"><a style="text-decoration: none;" href="@Url.Action("Product","Home",new {id=item.Key.ProductID })">@item.Key.ProductName</a></h6>
+                                        <p style="float:right;margin-bottom:10px;"><strong id="@item.Key.ProductID">$@Convert.ToDouble(item.Key.UnitPrice * item.Value)</strong></p>
+                                        <p style="text-align:left;margin-bottom:10px;">Miktar:</p><input type="number" class="cartItemCountPartial col-form-label" style="width:40%" value="@item.Value" max="@item.Key.UnitsInStock" min="1" name="@item.Key.ProductID" /><input type="hidden" value="@item.Key.UnitPrice" class="hiddenUnitPrice" />
+                                        <button class=" btn btn-danger btnDeleteFromCartPartial" style="float:right" value="@item.Key.ProductID">X</button>
+                                    </div>
+
+                                </div>
+
+                            </li>
+                            <hr />
+                            totalprice += Convert.ToDouble(item.Key.UnitPrice * item.Value);
+                        }
+
+                        <li class="sub-icon1 list" style="float:left">Sepet Tutarı: <strong id="totalpricePartial">$@totalprice</strong></li>
+                        <li class="sub-icon1 list" style="float:right"><a href="@Url.Action("Index","Cart")" class="btn btn-secondary">Sepete Git</a></li>
+
+                    </ul>
+                    <a href="@Url.Action("Index", "Cart")" id="cartCount" style="color:black;text-decoration:none;">Sepet (@cart.Keys.Count())</a>
+                </li>
+            } }
+    </ul>
+</div>
+<script src="~/Content/js/partialcart.js"></script>

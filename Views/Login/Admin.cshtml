@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "Mağaza Girişi";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+<div class="header-bottom">
+    <div class="wrap">
+        <div class="header-bottom">
+            <a href="@Url.Action("Index","Home")"><img src="~/Content/images/logo.png" alt="NorthwindShop" /></a>
+            <h1 class="display-4" style="text-align:center">Mağaza Girişi</h1>
+
+        </div>
+
+        <div class="clear"></div>
+    </div><br />
+
+</div>
+<hr />
+<div class="wrap">
+    <h5 style="text-align:center;color:royalblue">@TempData["CreateAccount"]</h5>
+
+    <div class="col_1_of_login span_1_of_login">
+        <div class="login-title">
+            <h4 class="title">Henüz Mağaza Kaydınız Yok Mu?</h4>
+            <div id="loginbox" class="loginbox">
+                <div class="button1">
+                    <a href="@Url.Action("NewEmployee","Login")"><input type="submit" name="Submit" value="Hesap Oluştur"></a>
+                </div>
+                <p id="login-form-username">Hemen mağazanız için bir hesap oluşturun ve satışa başlayın!</p>
+
+
+            </div>
+        </div><br />
+    </div>
+
+    <div class="col_1_of_login span_1_of_login">
+        <div class="login-title">
+            <h4 class="title">Giriş Yap</h4>
+            <div id="loginbox" class="loginbox">
+                <form action="@Url.Action("Admin","Login")" method="post" name="loginUser" id="login-form">
+                    <fieldset class="input">
+                        <p id="login-form-username">
+                            <label for="modlgn_username">Kullanıcı Adı:</label>
+                            <input id="modlgn_username" type="text" name="username" class="inputbox" size="18">
+                        </p>
+                        <p id="login-form-password">
+                            <label for="modlgn_passwd">Şifre:</label>
+                            <input id="modlgn_passwd" type="password" name="password" class="inputbox" size="18">
+                        </p>
+                        <div class="remember">
+                            <h5 class="text-danger">@ViewBag.AdminLoginMessage</h5>
+                            <input type="submit" name="Submit" class="button" value="Giriş Yap"><div class="clear"></div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="clear"></div>
+<br /><br /><br /><br />

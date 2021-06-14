@@ -1,0 +1,40 @@
+﻿@model NorthwindMarket.Models.AdminCustomerViewModel
+<table class="table table-hover" id="tableCustomers">
+    <tr>
+        <th>Müşteri ID</th>
+        <th>Müşteri Adı</th>
+        <th>Şirket Adı</th>
+        <th>Adres</th>
+        <th>Şehir</th>
+        <th>Posta Kodu</th>
+        <th>Ülke</th>
+        <th>Telefon</th>
+        <th>Engelle/<br />Kaldır</th>
+
+    </tr>
+    <tbody id="tablecustomersBody">
+        @foreach (var item in Model.Customer)
+        {
+            <tr>
+                <td>@item.CustomerID</td>
+                <td>@item.ContactName</td>
+                <td>@item.CompanyName</td>
+                <td>@item.Address</td>
+                <td>@item.City</td>
+                <td>@item.PostalCode</td>
+                <td>@item.Country</td>
+                <td>@item.Phone</td>
+                @switch (item.Activated)
+                {
+                    case true:
+                        <td><button class="btn btn-success" id="@item.CustomerID" onclick="disableCustomer('@item.CustomerID')"><i class="far fa-check-circle"></i></button></td>
+                        break;
+                    case false:
+                        <td><button class="btn btn-danger" id="@item.CustomerID" onclick="enableCustomer('@item.CustomerID')"><i class="far fa-times-circle"></i></button></td>
+                        break;
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+

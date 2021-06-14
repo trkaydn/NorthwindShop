@@ -1,0 +1,40 @@
+﻿@using NorthwindMarket.Models
+@model UserViewModel
+@{
+    ViewBag.Title = "Kullanıcı Bilgilerim";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+}
+
+<div class="col-sm-9" style="background-color:#f7f7f7;">
+    <div class="card-body">
+        @if (ViewBag.UserMessage != null)
+        {
+            <div class="alert alert-primary">
+                @ViewBag.UserMessage
+            </div>
+        }
+        @using (Html.BeginForm("UserInfo", "User", FormMethod.Post))
+        {
+            @Html.LabelFor(x => x.User.CustomerID)
+            @Html.TextBoxFor(x => x.User.CustomerID, "", new { @class = "form-control", value = Model.User.CustomerID, @readonly = true })
+            <br />
+            @Html.LabelFor(x => x.User.CompanyName)
+            @Html.TextBoxFor(x => x.User.CompanyName, "", new { @class = "form-control", value = Model.User.CompanyName })
+            @Html.ValidationMessageFor(x => x.User.CompanyName, "", new { @class = "text-danger" })
+            <br />
+            @Html.LabelFor(x => x.User.ContactName)
+            @Html.TextBoxFor(x => x.User.ContactName, "", new { @class = "form-control", value = Model.User.ContactName })
+            @Html.ValidationMessageFor(x => x.User.ContactName, "", new { @class = "text-danger" })
+            <br />
+            @Html.LabelFor(x => x.User.ContactTitle)
+            @Html.TextBoxFor(x => x.User.ContactTitle, "", new { @class = "form-control", value = Model.User.ContactTitle })
+            @Html.ValidationMessageFor(x => x.User.ContactTitle, "", new { @class = "text-danger" })
+            <br />
+            <input type="submit" class="btn btn-secondary" style="float:right;" value="Kaydet" />
+
+        }
+        <a href="@Url.Action("Index","User")" class=" btn btn-danger" style="float:right;margin-right:10px;">İptal</a>
+
+        <br /><br />
+    </div>
+</div>

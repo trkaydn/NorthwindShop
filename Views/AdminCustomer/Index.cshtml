@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewBag.Title = "Kullanıcılar";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div style="background-color:#f7f7f7;margin-left:20px">
+    <div class="card-body">
+        <h3 class="display-6" style="text-align:center">@ViewBag.Title</h3><hr />
+        <div class="row" style="margin-left:5%">
+            <div class="col">
+                @Html.Label("Kullanıcı Ara:")
+                <input id="tsearchCustomer" type="text" placeholder="Kullanıcı Ara...">
+            </div>
+            <div class="col">
+
+                @Html.Label("Durum:")
+                @Html.DropDownList("selectCustomerStatus", new List<SelectListItem> {
+                             new SelectListItem {
+                                Text="Aktif Hesaplar",
+                                Value="1",
+                             },
+                             new SelectListItem {
+                                Text="Engellemiş Hesaplar",
+                                Value="0",
+                             },
+                         }, "Tümü", new { id = "selectcustomerStatus", @class = "selectCustomer" })
+            </div>          
+        </div>
+        <br />
+        <div id="divfortablecustomers">
+            @Html.Partial("Customers")
+        </div>
+    </div>
+</div>

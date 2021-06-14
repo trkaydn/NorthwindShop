@@ -1,0 +1,49 @@
+﻿@model NorthwindMarket.Models.Entities.Products
+@{
+    ViewBag.Title = "Ürün Ekle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div style="background-color:#f7f7f7;margin-left:20px;">
+    <div class="card-body">
+        <h3 class="display-6" style="text-align:center">@ViewBag.Title</h3><hr />
+
+        @using (Html.BeginForm("Add", "AdminProduct", FormMethod.Post))
+        {
+            @Html.LabelFor(x => x.ProductName)
+            @Html.TextBoxFor(x => x.ProductName, "", new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.ProductName, "", new { @class = "text-danger" })
+            <br />
+            @Html.LabelFor(x => x.QuantityPerUnit)
+            @Html.TextBoxFor(x => x.QuantityPerUnit, "", new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.QuantityPerUnit, "", new { @class = "text-danger" })
+            <br />
+            @Html.LabelFor(x => x.CategoryID)
+            @Html.DropDownListFor(x => x.CategoryID, (IEnumerable<SelectListItem>)ViewBag.Categories, "Bir kategori seçin", new { @class = "form-control", })
+            @Html.ValidationMessageFor(x => x.CategoryID, "", new { @class = "text-danger" })
+            <br />
+            @Html.LabelFor(x => x.SupplierID)
+            @Html.DropDownListFor(x => x.SupplierID, (IEnumerable<SelectListItem>)ViewBag.Suppliers, "Bir firma seçin", new { @class = "form-control", })
+            @Html.ValidationMessageFor(x => x.SupplierID, "", new { @class = "text-danger" })
+            <br />
+            @Html.LabelFor(x => x.UnitPrice)
+            @Html.TextBoxFor(x => x.UnitPrice, "", new { @class = "form-control", type = "number", step = "0.01", id = "inputUnitPrice", name = "unitPrice" })
+            @Html.ValidationMessageFor(x => x.UnitPrice, "", new { @class = "text-danger" })
+            <br />
+            @Html.LabelFor(x => x.UnitsInStock)
+            @Html.TextBoxFor(x => x.UnitsInStock, "", new { @class = "form-control", type = "number" })
+            @Html.ValidationMessageFor(x => x.UnitsInStock, "", new { @class = "text-danger" })
+            <br />
+            @Html.CheckBoxFor(x => x.Activated, new { @class = "form-check-input", style = "margin-left:10px;font-size:20px;" })
+            @Html.LabelFor(x => x.Activated, new { @class = "form-check-label", style = "margin-left:5px;font-size:20px;" })
+            <br />
+            <input type="submit" class="btn btn-secondary" style="float:right;" value="Kaydet" />
+
+        }
+        <a href="@Url.Action("Index","AdminProduct")" class=" btn btn-danger" style="float:right;margin-right:10px;">İptal</a>
+
+        <br /><br />
+    </div>
+</div>
+
+

@@ -1,0 +1,124 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Northwind Shop - @ViewBag.Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="shortcut icon" type="image/x-icon" href="~/Content/images/favicon.ico" />
+    <link href="~/Content/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/Content/css/form.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/PagedList.css" rel="stylesheet" />
+    <script type="text/javascript" src="~/Content/js/jquery1.min.js"></script>
+    <!-- start menu -->
+    <link href="~/Content/css/megamenu.css" rel="stylesheet" type="text/css" media="all" />
+    <script type="text/javascript" src="~/Content/js/megamenu.js"></script>
+    <script>$(document).ready(function () { $(".megamenu").megamenu(); });</script>
+    <!--start slider -->
+    <link rel="stylesheet" href="~/Content/css/fwslider.css" media="all">
+    <script src="~/Content/js/jquery-ui.min.js"></script>
+    <script src="~/Content/js/css3-mediaqueries.js"></script>
+    <script src="~/Content/js/fwslider.js"></script>
+    <!--end slider -->
+    <script src="~/Content/js/jquery.easydropdown.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/css/sweetalert2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+</head>
+<body>
+
+    <div class="header-top">
+        <div class="wrap">
+            <div class="header-bottom-left">
+                <div class="logo">
+                    <a href="@Url.Action("Index","Home")"><img src="~/Content/images/logo.png" alt="NorthwindShop" style="margin-top:10px" /></a>
+                </div>
+
+            </div>
+            <div class="wrap">
+                <div class="cssmenu">
+                    <ul class="icon1 sub-icon1 profile_img" style="margin-top:10px;padding-left:0px;">
+                        <li><a class="btn btn-info" href="@Url.Action("Index", "Admin")">Mağazam (@Session["admin"])</a></li>
+                        <li><a class="btn btn-secondary" href="@Url.Action("Logout", "Admin")">Çıkış Yap</a></li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <br />
+    <button id="btnhide" class="btn btn-secondary" style="float:left;width:200px;margin-left:3%">Menüyü Gizle</button>
+    <br /><br />
+    <div class="row" style="width:100%">
+
+        <div class="col-sm-2" style="margin-left:20px;" id="adminmenu">
+            <div class="card">
+                <div class="card-header" style="text-align:center;">
+                    <strong>Sipariş İşlemleri</strong>
+                </div>
+                <ul class="list-group list-group-flush" style="text-align:center">
+                    <li class="list-group-item orderCart"><a class="m_text" href="@Url.Action("Index","Admin")" style="color:black;text-decoration:none;">Mağaza Paneli</a></li>
+                    <li class="list-group-item orderCart"><a class="m_text" href="@Url.Action("Orders","AdminOrder", new {status="waiting" })" style="color:black;text-decoration:none;">Sevk Bekleyen Siparişler</a></li>
+                    <li class="list-group-item orderCart"><a href="@Url.Action("Orders","AdminOrder", new {status="completed" })" style="color:black;text-decoration:none;">Tamamlanan Siparişler</a></li>
+                    <li class="list-group-item orderCart"><a href="@Url.Action("Orders","AdminOrder", new {status="cancelled" })" style="color:black;text-decoration:none;">İptal Edilen Siparişler</a></li>
+                </ul>
+            </div><br />
+            <div class="card">
+                <div class="card-header" style="text-align:center;">
+                    <strong>Depo İşlemleri</strong>
+                </div>
+                <ul class="list-group list-group-flush" style="text-align:center">
+                    <li class="list-group-item orderCart"><a class="m_text" href="@Url.Action("Index","AdminProduct")" style="color:black;text-decoration:none;">Ürünler</a></li>
+                    <li class="list-group-item orderCart"><a class="m_text" href="@Url.Action("Index","AdminCategory")" style="color:black;text-decoration:none;">Kategoriler</a></li>
+                    <li class="list-group-item orderCart"><a href="@Url.Action("Index", "AdminShipper")" style="color:black;text-decoration:none;">Nakliye Firmaları</a></li>
+                    <li class="list-group-item orderCart"><a href="@Url.Action("Index", "AdminCustomer")" style="color:black;text-decoration:none;">Kullanıcılar</a></li>
+                </ul>
+            </div>
+            <br />
+            <div class="card">
+                <div class="card-header" style="text-align:center;">
+                    <strong>Mağaza İşlemleri</strong>
+                </div>
+                <ul class="list-group list-group-flush" style="text-align:center">
+                    <li class="list-group-item orderCart"><a href="@Url.Action("AdminInfo","Admin")" style="color:black;text-decoration:none;">Kişisel Bilgilerim</a></li>
+                    <li class="list-group-item orderCart"><a href="@Url.Action("AddressInfo","Admin")" style="color:black;text-decoration:none;">İletişim Bilgilerim</a></li>
+                    <li class="list-group-item orderCart"><a class="changePasswordAdmin" style="color:black;text-decoration:none;cursor:pointer;">Şifre Değiştir</a></li>
+                    <li class="list-group-item orderCart"><a href="@Url.Action("Logout", "Admin")" style="color:black;text-decoration:none;">Çıkış Yap</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-sm-9">
+            <h2 class="head" style="text-align:center;">Mağaza Paneli</h2>
+            <hr />
+            @RenderBody()
+        </div>
+
+    </div>
+    <br /><br /><br />
+    <div class="footer">
+        <div class="footer-bottom">
+            <div class="wrap">
+                <div class="copy">
+                    <p>Copyright © 2021 Tarık Aydın - Tüm hakları saklıdır.</p>
+                </div>
+                <div class="f-list2">
+                    <ul>
+                        <li><a href="@Url.Action("About","Home")">| Hakkımızda |</a></li>
+                    </ul>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Content/js/test.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Content/js/sweetalert2.all.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Content/js/adminpanel.js"></script>
+
+</body>
+</html>

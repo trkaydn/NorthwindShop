@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "Nakliye Firmaları";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div style="background-color:#f7f7f7;margin-left:20px">
+    <div class="card-body">
+        <h3 class="display-6" style="text-align:center">@ViewBag.Title</h3><hr />
+        <div class="row" style="margin-left:5%">
+            <div class="col">
+                @Html.Label("Firma Ara:")
+                <input id="tsearchShipper" type="text" placeholder="Firma Ara...">
+            </div>
+            <div class="col">
+
+                @Html.Label("Durum:")
+                @Html.DropDownList("selectShipperStatus", new List<SelectListItem> {
+                             new SelectListItem {
+                                Text="Aktif Firmalar",
+                                Value="1",
+                             },
+                             new SelectListItem {
+                                Text="Pasif Firmalar",
+                                Value="0",
+                             },
+                         }, "Tümü", new { id = "selectshipperStatus", @class = "selectShipper" })
+            </div>
+            <div class="col">
+                <button class="btn btn-secondary" id="addNewShipper" style="float:right;width:100%">Yeni Firma Ekle</button>
+            </div>
+        </div>
+        <br />
+        <div id="divfortableshippers">
+            @Html.Partial("Shippers")
+        </div>
+    </div>
+</div>

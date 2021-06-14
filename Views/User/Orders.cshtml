@@ -1,0 +1,184 @@
+﻿@using NorthwindMarket.Models
+@model UserViewModel
+@{
+    ViewBag.Title = "Siparişlerim";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+    var waitingOrders = Model.Order.Where(x => x.ShippedDate == null && x.OrderStatus == true);
+}
+<div class="col-sm-9" style="text-align:center;">
+    @if (waitingOrders.Count() > 0)
+    {
+        <h3 class="display-6">Sevk Bekleyen Siparişler</h3><hr />
+        foreach (var order in waitingOrders)
+        {
+            var orderdetails = Model.OrderDetail.Where(x => x.OrderID == order.OrderID).Select(x => new { x.Products.ProductName, x.Quantity, x.UnitPrice }).ToList();
+            double price = 0;
+            <div class="card orderCart">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <img src="~/Content/images/product.jpg" alt="ls" style="width:100px;height:100px" /><br />
+                            <p style="margin-bottom:0.5rem;"><strong>Sipariş No:</strong></p>
+                            <p>@order.OrderID</p>
+                        </div>
+                        <div class="col-sm-4">
+                            <p><strong>Ürünler:</strong></p>
+                            @foreach (var item in orderdetails)
+                            {
+                                var productId = Model.Product.Where(x => x.ProductName == item.ProductName).FirstOrDefault().ProductID;
+                                <a style="color:black;text-decoration:none;" target="_blank" href="@Url.Action("Product","Home",new {id= productId})"><p>@item.ProductName (@item.Quantity Adet)</p></a>
+                            }
+
+                        </div>
+                        <div class="col-sm-2">
+                            <p><strong>Sipariş Tarihi:</strong></p>
+                            <p>@order.OrderDate.ToString("dd.MM.yyyy")</p>
+                        </div>
+                        <div class="col-sm-2">
+                            <p><strong>Toplam Tutar:</strong></p>
+                            @foreach (var orderdetail in orderdetails)
+                            {
+                                price += Convert.ToDouble(orderdetail.Quantity * orderdetail.UnitPrice);
+                            }
+
+                            @if (price >= 100)
+                            {
+                                <p>$@price</p>
+                            }
+                            else
+                            {
+                                price += Convert.ToDouble(order.Shippers.ShipPrice);
+                                <p>$@price</p>
+                            }
+
+
+                        </div>
+                        <div class="col-sm-2">
+                            <a href="@Url.Action("OrderDetail","User",new { id=order.OrderID})" class="btn btn-secondary" style="float:right;width:100%">Sipariş Detayları</a><br /><br /><br />
+                            <button class="btn btn-danger cancelOrder" value="@order.OrderID" style="float:right;width:100%">İptal Et</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+        }
+    }
+    @if (Model.Order.Where(x => x.OrderStatus == false).Count() > 0)
+    {
+        <div class="col-sm-3"></div>
+        <h3 class="display-6">İptal Edilen Siparişler</h3><hr />
+        foreach (var order in Model.Order.Where(x => x.OrderStatus == false))
+        {
+            var orderdetails = Model.OrderDetail.Where(x => x.OrderID == order.OrderID).Select(x => new { x.Products.ProductName, x.Quantity, x.UnitPrice }).ToList();
+            double price = 0;
+            <div class="card orderCart">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <img src="~/Content/images/product.jpg" alt="ls" style="width:100px;height:100px" /><br />
+                            <p style="margin-bottom:0.5rem;"><strong>Sipariş No:</strong></p>
+                            <p>@order.OrderID</p>
+                        </div>
+                        <div class="col-sm-4">
+                            <p><strong>Ürünler:</strong></p>
+                            @foreach (var item in orderdetails)
+                            {
+                                var productId = Model.Product.Where(x => x.ProductName == item.ProductName).FirstOrDefault().ProductID;
+                                <a style="color:black;text-decoration:none;" target="_blank" href="@Url.Action("Product","Home",new {id= productId})"><p>@item.ProductName (@item.Quantity Adet)</p></a>
+                            }
+
+                        </div>
+                        <div class="col-sm-2">
+                            <p><strong>Sipariş Tarihi:</strong></p>
+                            <p>@order.OrderDate.ToString("dd.MM.yyyy")</p>
+                        </div>
+                        <div class="col-sm-2">
+                            <p><strong>Toplam Tutar:</strong></p>
+                            @foreach (var orderdetail in orderdetails)
+                            {
+                                price += Convert.ToDouble(orderdetail.Quantity * orderdetail.UnitPrice);
+                            }
+
+                            @if (price >= 100)
+                            {
+                                <p>$@price</p>
+                            }
+                            else
+                            {
+                                price += Convert.ToDouble(order.Shippers.ShipPrice);
+                                <p>$@price</p>
+                            }
+
+
+                        </div>
+                        <div class="col-sm-2">
+                            <a href="@Url.Action("OrderDetail","User",new { id=order.OrderID})" class="btn btn-secondary" style="float:right;width:100%">Sipariş Detayları</a><br /><br /><br />
+                            <button class="btn btn-danger deleteOrder" value="@order.OrderID" style="float:right;width:100%">Sil</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+        }
+    }
+    <br />
+    <div class="col-sm-3"></div>
+    <h3 class="display-6" style="text-align:center;">Tamamlanan Siparişler</h3><hr />
+    @foreach (var order in Model.Order.Where(x => x.ShippedDate != null && x.OrderStatus == true))
+    {
+        var orderdetails = Model.OrderDetail.Where(x => x.OrderID == order.OrderID).Select(x => new { x.Products.ProductName, x.Quantity, x.UnitPrice }).ToList();
+        double price = 0;
+        <div class="card orderCart">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <a style="color:black;text-decoration:none;" href="@Url.Action("OrderDetail","User",new { id =order.OrderID})">
+                            <img src="~/Content/images/product.jpg" alt="ls" style="width:100px;height:100px" /><br />
+                            <p><strong>Sipariş No:</strong></p>
+                            <p>@order.OrderID</p>
+                        </a>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <p><strong>Ürünler:</strong></p>
+                        @foreach (var item in orderdetails)
+                        {
+                            var productId = Model.Product.Where(x => x.ProductName == item.ProductName).FirstOrDefault().ProductID;
+                            <a style="color:black;text-decoration:none;" target="_blank" href="@Url.Action("Product","Home",new {id= productId})"><p>@item.ProductName (@item.Quantity Adet)</p></a>
+                        }
+
+                    </div>
+                    <div class="col-sm-2">
+                        <p><strong>Sipariş Tarihi:</strong></p>
+                        <p>@order.OrderDate.ToString("dd.MM.yyyy")</p>
+                    </div>
+                    <div class="col-sm-2">
+                        <p><strong>Toplam Tutar:</strong></p>
+                        @foreach (var orderdetail in orderdetails)
+                        {
+                            price += Convert.ToDouble(orderdetail.Quantity * orderdetail.UnitPrice);
+                        }
+
+                        @if (price >= 100)
+                        {
+                            <p>$@price</p>
+                        }
+                        else
+                        {
+                            price += Convert.ToDouble(order.Shippers.ShipPrice);
+                            <p>$@price</p>
+                        }
+
+                    </div>
+                    <div class="col-sm-2">
+                        <a href="@Url.Action("OrderDetail","User",new { id=order.OrderID})" class="btn btn-secondary" style="float:right;width:100%">Sipariş Detayları</a><br /><br /><br />
+                        <button class="btn btn-danger deleteOrder" value="@order.OrderID" style="float:right;width:100%">Sil</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+    }
+
+
+</div>

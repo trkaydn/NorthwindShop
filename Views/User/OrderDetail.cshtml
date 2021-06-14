@@ -1,0 +1,104 @@
+﻿@using NorthwindMarket.Models
+@model UserViewModel
+@{
+    ViewBag.Title = "Sipariş Detayları";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+    var orderdetails = Model.OrderDetail.Where(x => x.OrderID == Model.OrderForDetailPage.OrderID);
+    decimal price = 0;
+    decimal cargoPrice = 0;
+
+}
+
+<div class="col-sm-9" style="text-align:center;">
+
+    <h3 class="display-6">Sipariş Detayları (@Model.OrderForDetailPage.OrderID)</h3><hr />
+
+    <div class="card" style="background-color:#f7f7f7;">
+        <div class="card-header">
+            <h5 class="card-title" style="float:left;">Sipariş No: @Model.OrderForDetailPage.OrderID</h5>
+            <h5 class="card-title" style="float:right;">Sipariş Tarihi: @Model.OrderForDetailPage.OrderDate.ToString("dd.MM.yyyy")</h5>
+        </div>
+
+        <div class="card-body">
+            <div class="row">
+                <h4>Ürünler:</h4><hr />
+                @foreach (var item in orderdetails)
+                {
+                    <div class="col-sm-6">
+                        @if (item.Products.Activated == true)
+                        {
+                            <a href="@Url.Action("Product", "Home", new { id = item.ProductID })" style="color:black;text-decoration:none;">
+                                <img src="~/Content/images/product.jpg" alt="product" style="height:30%" /><br /><br />
+                                <h4>@item.Products.ProductName (@item.Products.QuantityPerUnit)</h4>
+                            </a>
+                        }
+                        else
+                        {
+                            <img src="~/Content/images/product.jpg" alt="product" /><br /><br />
+                            <h4>@item.Products.ProductName (@item.Products.QuantityPerUnit)</h4>
+                        }
+                        <h6>Üretici Firma: @item.Products.Suppliers.CompanyName</h6>
+                        <h6>Kategori: @item.Products.Categories.CategoryName</h6>
+                        <h6>Satıcı: @item.Orders.Employees.FirstName  @item.Orders.Employees.LastName</h6>
+                        <h6>Miktar: <strong>@item.Quantity Adet</strong></h6>
+                        <h6>Birim Fiyat:<strong> $@item.UnitPrice.ToString("#,##0.00")</strong></h6>
+                    </div>
+                    price += Convert.ToDecimal(item.Quantity * item.UnitPrice);
+                }
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <h4 style="float:left;">Siparişin Durumu:</h4><br /><hr />
+                    @if (Model.OrderForDetailPage.OrderStatus == false)
+                    {
+                        <h4 style="float:left;" class="text-danger"><strong>Sipariş İptal Edildi</strong></h4><br /><br />
+
+                    }
+                    else if (Model.OrderForDetailPage.ShippedDate != null)
+                    {
+                        <h5 style="float:left;">@Model.OrderForDetailPage.ShippedDate.Value.ToString("dd.MM.yyyy") tarihinde kargoya verildi.</h5><br />
+                    }
+                    else
+                    {
+                        <h5 style="float:left;">Ürün hazırlanıyor. (Henüz kargoya verilmedi.)</h5><br />
+
+                    }
+                    <h6 style="float:left;">Kargo Firması: @Model.OrderForDetailPage.Shippers.CompanyName</h6>
+
+                </div><div class="col-sm-6">
+                    @if (price < 100)
+                    {
+                        cargoPrice = Model.OrderForDetailPage.Shippers.ShipPrice;
+                        price += cargoPrice;
+                    }
+                    <h4 style="float:right">Kargo Ücreti: $@cargoPrice <hr /> Toplam Tutar: <strong>$@price.ToString("#,##0.00")</strong></h4>
+                </div>
+            </div><br />
+            <div class="col-sm-12">
+                <h4>Alıcı Bilgileri</h4><hr />
+                <h6>Ad Soyad: <strong>@Model.OrderForDetailPage.ShipName</strong></h6>
+                <h6>Gönderim Adresi: <strong>@Model.OrderForDetailPage.ShipAddress @Model.OrderForDetailPage.ShipCity @Model.OrderForDetailPage.ShipPostalCode @Model.OrderForDetailPage.ShipCountry</strong></h6>
+            </div>
+            <br />
+            @if (Model.OrderForDetailPage.OrderStatus == false)
+            {
+                <button class="btn btn-danger deleteOrder" value="@Model.OrderForDetailPage.OrderID" style="float:right;width:100%">Sil</button>
+
+            }
+            else if (Model.OrderForDetailPage.ShippedDate != null)
+            {
+                <button class="btn btn-danger deleteOrder" value="@Model.OrderForDetailPage.OrderID" style="float:right;width:100%">Sil</button>
+
+            }
+            else
+            {
+                <button class="btn btn-danger cancelOrder" value="@Model.OrderForDetailPage.OrderID" style="float:right;width:100%">İptal Et</button>
+
+            }
+
+
+        </div>
+    </div>
+</div>
+
+

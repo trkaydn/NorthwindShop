@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "Kategoriler";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div style="background-color:#f7f7f7;margin-left:20px">
+    <div class="card-body">
+        <h3 class="display-6" style="text-align:center">@ViewBag.Title</h3><hr />
+        <div class="row" style="margin-left:5%">
+            <div class="col">
+                @Html.Label("Kategori Ara:")
+                <input id="tsearchCategory" type="text" placeholder="Kategori Ara...">
+            </div>
+            <div class="col">
+
+                @Html.Label("Durum:")
+                @Html.DropDownList("selectCategoryStatus", new List<SelectListItem> {
+                             new SelectListItem {
+                                Text="Aktif Kategoriler",
+                                Value="1",
+                             },
+                             new SelectListItem {
+                                Text="Pasif Kategoriler",
+                                Value="0",
+                             },
+                         }, "Tümü", new { id = "selectcategoryStatus", @class = "selectCategory" })
+            </div>
+            <div class="col">
+                <button class="btn btn-secondary" id="addNewCategory" style="float:right;width:100%">Yeni Kategori Ekle</button>
+            </div>
+        </div>
+        <br />
+        <div id="divfortablecategories">
+            @Html.Partial("Categories")
+        </div>
+    </div>
+</div>
+
+
+

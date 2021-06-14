@@ -1,0 +1,56 @@
+﻿@using NorthwindMarket.Models
+@model AdminViewModel
+@{
+    ViewBag.Title = "İletişim Bilgilerim";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div style="background-color:#f7f7f7;margin-left:20px">
+    <div class="card-body">
+        @if (ViewBag.AddressMessage != null)
+        {
+            <div class="alert alert-primary">
+                @ViewBag.AddressMessage
+            </div>
+        }
+        else if (ViewBag.AddressError != null)
+        {
+            <div class="alert alert-danger">
+                @ViewBag.AddressError
+            </div>
+        }
+
+        @using (Html.BeginForm("AddressInfo", "Admin", FormMethod.Post))
+        {
+            @Html.LabelFor(x => x.Admin.Address)
+            @Html.TextBoxFor(x => x.Admin.Address, "", new { @class = "form-control", value = Model.Admin.Address })
+            @Html.ValidationMessageFor(x => x.Admin.Address, "", new { @class = "text-danger" })
+            <br />
+            @Html.LabelFor(x => x.Admin.City)
+            @Html.TextBoxFor(x => x.Admin.City, "", new { @class = "form-control", value = Model.Admin.City })
+            @Html.ValidationMessageFor(x => x.Admin.City, "", new { @class = "text-danger" })
+            <br />
+            @Html.LabelFor(x => x.Admin.Country)
+            @Html.TextBoxFor(x => x.Admin.Country, "", new { @class = "form-control", value = Model.Admin.Country })
+            @Html.ValidationMessageFor(x => x.Admin.Country, "", new { @class = "text-danger" })
+            <br />
+            @Html.LabelFor(x => x.Admin.Region)
+            @Html.TextBoxFor(x => x.Admin.Region, "", new { @class = "form-control", value = Model.Admin.Region })
+            @Html.ValidationMessageFor(x => x.Admin.Region, "", new { @class = "text-danger" })
+            <br />
+            @Html.LabelFor(x => x.Admin.PostalCode)
+            @Html.TextBoxFor(x => x.Admin.PostalCode, "", new { @class = "form-control", value = Model.Admin.PostalCode })
+            @Html.ValidationMessageFor(x => x.Admin.PostalCode, "", new { @class = "text-danger" })
+            <br />
+            @Html.LabelFor(x => x.Admin.HomePhone)
+            @Html.TextBoxFor(x => x.Admin.HomePhone, "", new { @class = "form-control", value = Model.Admin.HomePhone })
+            @Html.ValidationMessageFor(x => x.Admin.HomePhone, "", new { @class = "text-danger" })
+            <br />
+            <input type="submit" class="btn btn-secondary" style="float:right;" value="Kaydet" />
+
+        }
+        <a href="@Url.Action("Index","Admin")" class=" btn btn-danger" style="float:right;margin-right:10px;">İptal</a>
+        
+        <br /><br />
+    </div>
+</div>

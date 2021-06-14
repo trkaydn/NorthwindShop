@@ -1,0 +1,97 @@
+﻿@model NorthwindMarket.Models.Entities.Customers
+
+@{
+    ViewBag.Title = "Üye Ol";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+
+
+
+
+    <div class="header-bottom">
+        <div class="wrap">
+            <div class="header-bottom">
+                <a href="@Url.Action("Index","Home")"><img src="~/Content/images/logo.png" alt="NorthwindShop" /></a>
+                <h1 class="display-4" style="text-align:center">Hesap Oluştur</h1>
+            </div>
+
+            <div class="clear"></div>
+        </div><br />
+
+    </div>
+    <hr />
+    <div class="wrap">
+        @using (Html.BeginForm("NewCustomer", "Login", FormMethod.Post))
+        {
+            <div class="col_1_of_login span_1_of_login">
+                <h4 class="title">Adres Bilgileri</h4>
+
+                @Html.LabelFor(x => x.ContactTitle)
+                @Html.TextBoxFor(x => x.ContactTitle, "", new { @class = "form-control", placeholder = "Adres Başlığı" })
+                @Html.ValidationMessageFor(x => x.ContactTitle, "", new { @class = "text-danger" })
+                <br />
+                @Html.LabelFor(x => x.Address)
+                @Html.TextAreaFor(x => x.Address, new { @class = "form-control", value = "Açık Adres" })
+                @Html.ValidationMessageFor(x => x.Address, "", new { @class = "text-danger" })
+                <br />
+                @Html.LabelFor(x => x.City)
+                @Html.TextBoxFor(x => x.City, "", new { @class = "form-control", placeholder = "Şehir" })
+                @Html.ValidationMessageFor(x => x.City, "", new { @class = "text-danger" })
+                <br />
+                @Html.LabelFor(x => x.Region)
+                @Html.TextBoxFor(x => x.Region, "", new { @class = "form-control", placeholder = "Bölge" })
+                @Html.ValidationMessageFor(x => x.Region, "", new { @class = "text-danger" })
+                <br />
+                @Html.LabelFor(x => x.PostalCode)
+                @Html.TextBoxFor(x => x.PostalCode, "", new { @class = "form-control", placeholder = "Posta Kodu" })
+                @Html.ValidationMessageFor(x => x.PostalCode, "", new { @class = "text-danger" })
+                <br />
+                @Html.LabelFor(x => x.Country)
+                @Html.TextBoxFor(x => x.Country, "", new { @class = "form-control", placeholder = "Ülke" })
+                @Html.ValidationMessageFor(x => x.Country, "", new { @class = "text-danger" })
+                <br />
+                @Html.LabelFor(x => x.Phone)
+                @Html.TextBoxFor(x => x.Phone, "", new { @class = "form-control", placeholder = "Telefon" })
+                @Html.ValidationMessageFor(x => x.Phone, "", new { @class = "text-danger" })
+                <br />
+                @Html.LabelFor(x => x.Fax)
+                @Html.TextBoxFor(x => x.Fax, "", new { @class = "form-control", placeholder = "Fax" })
+                @Html.ValidationMessageFor(x => x.Fax, "", new { @class = "text-danger" })
+                <br />
+                <p>Adres bilgilerinizi boş geçerek daha sonra hesap ayarlarından değiştirebilirsiniz.</p>
+            </div>
+
+            <div class="col_1_of_login span_1_of_login">
+                <h4 class="title">Kullanıcı Bilgileri</h4>
+
+                @Html.LabelFor(x => x.CustomerID)* <p style="float:right">(Müşteri ID alanı 5 karakter olmalıdır.)</p>
+                @Html.TextBoxFor(x => x.CustomerID, "", new { @class = "form-control", placeholder = "Müşteri ID", maxlength = 5 })
+                @Html.ValidationMessageFor(x => x.CustomerID, "", new { @class = "text-danger" })
+                <br />
+
+                @Html.LabelFor(x => x.CompanyName)*
+                @Html.TextBoxFor(x => x.CompanyName, "", new { @class = "form-control", placeholder = "Şirket Adı" })
+                @Html.ValidationMessageFor(x => x.CompanyName, "", new { @class = "text-danger" })
+                <br />
+
+                @Html.LabelFor(x => x.ContactName)*
+                @Html.TextBoxFor(x => x.ContactName, "", new { @class = "form-control", placeholder = "Ad Soyad" })
+                @Html.ValidationMessageFor(x => x.ContactName, "", new { @class = "text-danger" })
+                <br />
+
+                @Html.LabelFor(x => x.Password)*
+                @Html.PasswordFor(x => x.Password, new { @class = "form-control", placeholder = "Şifre" })
+                @Html.ValidationMessageFor(x => x.Password, "", new { @class = "text-danger" })
+                <br />
+                <h5 class="text-danger">@ViewBag.CreateAccount</h5>
+                <input type="submit" class="btn btn-success btn-lg btn-block" style="float:right;" />
+                <div class="clear"></div>
+            </div>
+
+        }
+        <div class="clear"></div>
+    </div>
+
+
+    

@@ -1,0 +1,54 @@
+﻿@using NorthwindMarket.Models
+@model AdminViewModel
+@{
+    ViewBag.Title = "Kişisel Bilgilerim";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div style="background-color:#f7f7f7;margin-left:20px;">
+    <div class="card-body">
+        @if (ViewBag.AdminMessage != null)
+        {
+            <div class="alert alert-primary">
+                @ViewBag.AdminMessage
+            </div>
+        }
+
+
+        @using (Html.BeginForm("AdminInfo", "Admin", FormMethod.Post))
+        {
+            @Html.LabelFor(x => x.Admin.UserName)
+            @Html.TextBoxFor(x => x.Admin.UserName, "", new { @class = "form-control", value = Model.Admin.UserName, @readonly = true })
+            <br />
+            @Html.LabelFor(x => x.Admin.FirstName)
+            @Html.TextBoxFor(x => x.Admin.FirstName, "", new { @class = "form-control", value = Model.Admin.FirstName })
+            @Html.ValidationMessageFor(x => x.Admin.FirstName, "", new { @class = "text-danger" })
+            <br />
+            @Html.LabelFor(x => x.Admin.LastName)
+            @Html.TextBoxFor(x => x.Admin.LastName, "", new { @class = "form-control", value = Model.Admin.LastName })
+            @Html.ValidationMessageFor(x => x.Admin.LastName, "", new { @class = "text-danger" })
+            <br />
+            @Html.LabelFor(x => x.Admin.Title)
+            @Html.TextBoxFor(x => x.Admin.Title, "", new { @class = "form-control", value = Model.Admin.Title })
+            @Html.ValidationMessageFor(x => x.Admin.Title, "", new { @class = "text-danger" })
+            <br />
+            @Html.LabelFor(x => x.Admin.Notes)
+            @Html.TextBoxFor(x => x.Admin.Notes, "", new { @class = "form-control", value = Model.Admin.Notes })
+            @Html.ValidationMessageFor(x => x.Admin.Notes, "", new { @class = "text-danger" })
+            <br />
+            @Html.LabelFor(x => x.Admin.BirthDate)
+            @Html.TextBoxFor(x => x.Admin.BirthDate, "{0:yyyy-MM-dd}", new { @class = "form-control", value = Model.Admin.BirthDate.ToString("0:yyyy-MM-dd"), type = "date" })
+            @Html.ValidationMessageFor(x => x.Admin.BirthDate, "", new { @class = "text-danger" })
+            <br />
+            @Html.LabelFor(x => x.Admin.HireDate)
+            @Html.TextBoxFor(x => x.Admin.HireDate, "{0:yyyy-MM-dd}", new { @class = "form-control", value = Model.Admin.HireDate, type = "date" })
+            @Html.ValidationMessageFor(x => x.Admin.HireDate, "", new { @class = "text-danger" })
+            <br />
+            <input type="submit" class="btn btn-secondary" style="float:right;" value="Kaydet" />
+
+        }
+        <a href="@Url.Action("Index","Admin")" class=" btn btn-danger" style="float:right;margin-right:10px;">İptal</a>
+
+        <br /><br />
+    </div>
+</div>

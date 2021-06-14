@@ -1,0 +1,49 @@
+﻿@model NorthwindMarket.Models.AdminProductViewModel
+@{
+    ViewBag.Title = "Ürünler";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div style="background-color:#f7f7f7;margin-left:20px">
+    <div class="card-body">
+        <h3 class="display-6" style="text-align:center">@ViewBag.Title</h3><hr />
+        @if (TempData["Message"] != null)
+        {
+            <div class="alert alert-primary">
+                @TempData["Message"]
+            </div>
+        }
+        <div class="row" style="margin-left:5%">
+            <div class="col">
+                @Html.Label("Ürün Ara:")
+                <input id="tsearch" type="text" placeholder="Ürün Ara...">
+            </div>
+            <div class="col">
+
+                @Html.Label("Kategori:")
+                @Html.DropDownList("selectCategory", Model.SelectedListCategory, "Tüm Ürünler", new { id = "selectCategory", @class = "selectProduct" })
+            </div>
+            <div class="col">
+
+                @Html.Label("Durum:")
+                @Html.DropDownList("selectCategory", new List<SelectListItem> {
+                             new SelectListItem {
+                                Text="Satışta Olanlar",
+                                Value="1",
+                             },
+                             new SelectListItem {
+                                Text="Satışta Olmayanlar",
+                                Value="0",
+                             },
+                         }, "Tümü", new { id = "selectStatus", @class = "selectProduct" })
+            </div>
+            <div class="col">
+                <a href="@Url.Action("Add","AdminProduct")" class="btn btn-secondary" style="float:right;width:100%">Yeni Ürün Ekle</a>
+            </div>
+        </div>
+        <br />
+        <div id="divfortable">
+            @Html.Partial("Products")
+        </div>
+    </div>
+</div>
+

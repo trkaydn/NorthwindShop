@@ -1,0 +1,82 @@
+﻿@using NorthwindMarket.Models
+@model UserViewModel
+@{
+    ViewBag.Title = "Hesabım";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+}
+
+<div class="col-sm-3" >
+    <img src="~/Content/images/user.jpg" alt="user" />
+    <p style="text-align:center;">@Model.User.CustomerID</p>
+</div>
+<div class="col-sm-6" >
+    <div class="card-body" style="background-color:#f7f7f7;">
+
+        <h3 class="display-5">@Model.User.ContactName</h3>
+        <h5>@Model.User.CompanyName</h5>
+        <br /><br /><br /><br /><br /><br /><br />
+        <h6><a href="#" style="color:black;text-decoration:none;">Toplam Sipariş Sayısı: @Model.Order.Count()</a></h6>
+        <h6><a href="#" style="color:black;text-decoration:none;">Sevk Bekleyen Sipariş Sayısı: @Model.Order.Where(x => x.ShippedDate == null).Count()</a></h6>
+    </div></div>
+
+    <div class="row">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-9">
+            <div class="card">
+                <h5 class="card-header">Kullanıcı Bilgilerim</h5>
+                <div class="card-body orderCart">
+
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <p class="card-text">Müşteri ID: <strong>@Model.User.CustomerID</strong></p>
+                        </div>
+                        <div class="col-sm-3">
+                            <p class="card-text">Şirket Adı: <strong>@Model.User.CompanyName</strong></p>
+                        </div>
+                        <div class="col-sm-3">
+                            <p class="card-text">Kişi Adı: <strong>@Model.User.ContactName</strong></p>
+                        </div>
+                        <div class="col-sm-3">
+                            <p class="card-text">İletişim Başlığı: <strong>@Model.User.ContactTitle</strong></p>
+                        </div>
+                    </div>
+                    <a href="@Url.Action("UserInfo","User")" class="btn btn-secondary" style="float:right">Güncelle</a>
+                </div>
+            </div><br />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3"></div>
+
+        <div class="col-sm-9">
+            <div class="card">
+                <h5 class="card-header">Adres Bilgilerim</h5>
+                <div class="card-body orderCart">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <p class="card-text">Adres: <strong>@Model.User.Address</strong></p>
+                        </div>
+                        <div class="col-sm-3">
+                            <p class="card-text">Şehir: <strong>@Model.User.City</strong></p>
+                        </div>
+                        <div class="col-sm-3">
+                            <p class="card-text">Ülke: <strong>@Model.User.Country</strong></p>
+                        </div>
+                        <div class="col-sm-3">
+                            <p class="card-text">Bölge: <strong>@Model.User.Region</strong></p>
+                        </div>
+                        <div class="col-sm-3">
+                            <p class="card-text">Posta Kodu: <strong>@Model.User.PostalCode</strong></p>
+                        </div>
+                        <div class="col-sm-3">
+                            <p class="card-text">Telefon: <strong>@Model.User.Phone</strong></p>
+                        </div>
+                        <div class="col-sm-3">
+                            <p class="card-text">Faks: <strong>@Model.User.Fax</strong></p>
+                        </div>
+                    </div>
+                    <a href="@Url.Action("AddressInfo","User")" class="btn btn-secondary" style="float:right">Güncelle</a>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,38 @@
+﻿@model NorthwindMarket.Models.AdminProductViewModel
+<table class="table table-hover" id="tableProducts">
+    <tr>
+        <th>Ürün No</th>
+        <th>Ürün Adı</th>
+        <th>Ürün Detay</th>
+        <th>Birim Fiyat</th>
+        <th>Stok</th>
+        <th>Düzenle</th>
+        <th>Fiyat/Stok</th>
+        <th>Satışta</th>
+    </tr>
+    <tbody id="tableProductsBody">
+        @foreach (var item in Model.Product)
+        {
+            <tr>
+                <td>@item.ProductID</td>
+                <td><a href="@Url.Action("Product","Home",new { id = item.ProductID })" target="_blank" style="color:black;text-decoration:none;">@item.ProductName</a></td>
+                <td>@item.QuantityPerUnit</td>
+                <td>$@item.UnitPrice</td>
+                <td>@item.UnitsInStock</td>
+                @switch (item.Activated)
+                {
+                    case true:
+                        <td><a href="@Url.Action("EditDetail","AdminProduct",new { id = item.ProductID })" class="btn btn-info"><i class="far fa-edit"></i></a></td>
+                        <td><button class="btn btn-warning" onclick="editPrice(@item.ProductID)"><i class="fas fa-dollar-sign"></i></button></td>
+                        <td><button class="btn btn-success" onclick="disableProduct(@item.ProductID)" id="@item.ProductID"><i class="far fa-check-circle"></i></button></td>
+                        break;
+                    case false:
+                        <td><a href="@Url.Action("EditDetail","AdminProduct",new { id = item.ProductID })" class="btn btn-info"><i class="far fa-edit"></i></a></td>
+                        <td><button class="btn btn-warning" onclick="editPrice(@item.ProductID)"><i class="fas fa-dollar-sign"></i></button></td>
+                        <td><button class="btn btn-danger" onclick="enableProduct(@item.ProductID)" id="@item.ProductID"><i class="far fa-times-circle"></i></button></td>
+                        break;
+                }
+            </tr>
+        }
+    </tbody>
+</table>

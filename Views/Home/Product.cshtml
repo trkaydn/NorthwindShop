@@ -1,0 +1,83 @@
+﻿@model NorthwindMarket.Models.HomeViewModel
+@{
+    ViewBag.Title = Model.Product.ProductName;
+}
+<div class="main">
+    <div class="wrap">
+        <ul class="breadcrumb breadcrumb__t"><a class="home" href="@Url.Action("Index","Home")">Ana Sayfa</a> / <a href="/Home/Category/@Model.Product.CategoryID">@Model.Product.Categories.CategoryName</a> / @Model.Product.ProductName</ul>
+        <div class="cont span_2_of_1">
+            <img src="~/Content/images/product.jpg"><br /><br />
+            <p style="text-align:left;"><strong>Bu ürün @Model.Product.UnitsOnOrder defa sipariş edildi.</strong></p>
+        </div>
+        <div class="desc1 span_3_of_2">
+
+            <h1 class="display-4">@Model.Product.ProductName</h1>
+            <p class="m_5"><strong>Fiyat: $@Model.Product.UnitPrice</strong></p><br />
+            <div class="row">
+
+                <div class="col-sm">
+                    <div class="toogle">
+                        <div class="col-sm">
+                            <div class="btn_form">
+
+
+                                <label>Adet:</label><br />
+                                @if (Model.Product.UnitsInStock > 1)
+                                {
+                                    <input type="number" class="col-form-label" value="1" max="@Model.Product.UnitsInStock" min="1" name="unit" id="unit" />
+                                }
+                                else
+                                {
+                                    <input type="number" class="col-form-label" value="0" max="@Model.Product.UnitsInStock" min="0" name="unit" id="unit" />
+
+                                }
+                                <input type="hidden" value="@Model.Product.ProductID" name="productID" id="productID" />
+                                <button id="btnAddToCart" class="btn btn-secondary">Sepete Ekle</button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="col-sm">
+                    <ul class="list-group" style="width:50%">
+                        <li class="list-group-item">İçerik: <strong>@Model.Product.QuantityPerUnit</strong></li>
+                        <li class="list-group-item">Üretici Firma: <strong>@Model.Product.Suppliers.CompanyName</strong></li>
+                        <li class="list-group-item">Stok Sayısı: <strong id="stockCount">@Model.Product.UnitsInStock</strong></li>
+
+                    </ul><br />
+                </div>
+            </div>
+            <br />
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+
+<div class="clear"></div>
+<div class="col" style="margin-left:10%;margin-right:10%">
+    <h3 class="m_3">Ürün Açıklaması</h3>
+    <p class="m_text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.</p>    <br />
+    <table class="table table-bordered">
+        <tr>
+            <th><strong>Kargo Firması</strong></th>
+            <th><strong>Ücret</strong></th>
+        </tr>
+        <tbody>
+            @foreach (var shipper in Model.Shipper)
+            {
+                <tr>
+                    <td>@shipper.CompanyName</td>
+                    <td>$@shipper.ShipPrice</td>
+                </tr>
+            }
+            <tr>
+                <td>$100 ve üzeri</td>
+                <td>Ücretsiz</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<br />

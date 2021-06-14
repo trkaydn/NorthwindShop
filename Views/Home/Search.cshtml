@@ -1,0 +1,84 @@
+﻿@model NorthwindMarket.Models.HomeViewModel
+@{ 
+    ViewBag.Title = ViewBag.Value;
+}
+<div class="main">
+    <div class="wrap">
+
+        <h2 class="head">"@ViewBag.Value" arama sonuçları</h2>
+
+
+        <div class="cont span_2_of_3">
+            <hr />
+            @if (Model.Products.Count() < 1)
+            {
+                <br />
+                <p style="text-align:center;">Hiçbir sonuç bulunamadı.</p>
+
+            }
+            else
+            {
+                foreach (var product in Model.Products)
+                {
+                    <div class="col_1_of_3 span_1_of_3" style="height:400px;">
+                        <div class="inner_content clearfix">
+                            <a href="@Url.Action("Product","Home",new { id=product.ProductID })">
+                                <div class="product_image">
+                                    <img src="~/Content/images/product.jpg" alt="" />
+                                </div>
+                                <div class="price">
+                                    <div class="cart-left">
+                                        <p class="title">@product.ProductName</p>
+                                        <div class="price1">
+                                            <span class="actual">$ @product.UnitPrice</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="cart-right"><input type="hidden" value="@product.ProductID" /></div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                }
+            }
+            <div class="clear"></div>
+        </div>
+
+        <div class="rsidebar span_1_of_left">
+            <div class="top-border"> </div>
+            <div class="sidebar-bottom">
+
+                <h2 class="m_1">Kategoriler</h2>
+                <ul class="megamenu skyblue">
+                    <li><a class="m_text" href="@Url.Action("Category","Home", new { id = 0 })">All Products</a></li>
+                    @foreach (var ctg in Model.Categories)
+                    {
+                        <li><a href="@Url.Action("Category","Home", new { id=ctg.CategoryID })">@ctg.CategoryName</a></li>
+                        <br />
+                    }
+                </ul>
+            </div> <br /><br />
+
+            <div class="border">
+                <link href="~/Content/css/default.css" rel="stylesheet" type="text/css" media="all" />
+                <link href="~/Content/css/nivo-slider.css" rel="stylesheet" type="text/css" media="all" />
+                <script src="~/Content/js/jquery.nivo.slider.js"></script>
+                <script type="text/javascript">
+                    $(window).load(function () {
+                        $('#slider').nivoSlider();
+                    });
+                </script>
+                <div class="slider-wrapper theme-default">
+                    <div id="slider" class="nivoSlider">
+                        <img src="~/Content/images/t-img1.jpg" alt="" />
+                        <img src="~/Content/images/t-img2.jpg" alt="" />
+                        <img src="~/Content/images/t-img3.jpg" alt="" />
+                    </div>
+                </div>
+                <div class="btn"><a href="@Url.Action("About","Home")">Hakkımızda</a></div>
+            </div>
+
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>

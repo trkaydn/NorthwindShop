@@ -1,0 +1,32 @@
+﻿@model NorthwindMarket.Models.AdminShipperViewModel
+<table class="table table-hover" id="tableShippers">
+    <tr>
+        <th>Şirket No</th>
+        <th>Şirket Adı</th>
+        <th>Telefon No</th>
+        <th>Kargo Ücreti</th>
+        <th>Durum</th>
+
+    </tr>
+    <tbody id="tableshippersBody">
+        @foreach (var item in Model.Shipper)
+        {
+            <tr>
+                <td>@item.ShipperID</td>
+                <td>@item.CompanyName</td>
+                <td>@item.Phone</td>
+                <td>$@item.ShipPrice</td>
+
+                @switch (item.Activated)
+                {
+                    case true:
+                        <td><button class="btn btn-success" id="@item.ShipperID" onclick="disableShipper(@item.ShipperID)"><i class="far fa-check-circle"></i></button></td>
+                        break;
+                    case false:
+                        <td><button class="btn btn-danger" id="@item.ShipperID" onclick="enableShipper(@item.ShipperID)"><i class="far fa-times-circle"></i></button></td>
+                        break;
+                }
+            </tr>
+        }
+    </tbody>
+</table>
